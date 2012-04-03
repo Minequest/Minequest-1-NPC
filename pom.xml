@@ -6,7 +6,7 @@
 	<artifactId>MineQuest-NPC</artifactId>
 	<packaging>jar</packaging>
 	<version>dev-SNAPSHOT</version>
-	<name>MineQuest</name>
+	<name>MineQuest-NPC</name>
 	<url>http://www.theminequest.com/</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
