@@ -1,0 +1,25 @@
+name: MineQuest-NPC
+main: com.theminequest.MQCoreNPC.MQCoreNPC
+version: ${build.number}
+
+author: JMonk
+authors: [Echobob, Xu_R, Ltan, Makraiz, Blaksmith]
+
+description: This plugin, and its add-ons expands Minecraft to add in Npcs, Quests, and custom events to create a Role-Play enviorment in Minecraft
+website: www.theminequest.com
+
+load: POSTWORLD
+
+depend: [MineQuest]
+
+commands:
+   mqnpc:
+      aliases: [npc]
+      description: NPC Command for MineQuest
+      usage: /<command>
+      permission: minequest.npc
+
+permissions:
+  minequest.npc:
+    description: Allows NPC commands
+    default: op
