@@ -10,8 +10,7 @@ website: www.theminequest.com
 
 load: POSTWORLD
 
-depend: [MineQuest]
-depend: [Vault]
+depend: [MineQuest, Vault]
 
 commands:
    mqnpc:

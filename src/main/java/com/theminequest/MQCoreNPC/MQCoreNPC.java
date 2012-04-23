@@ -19,6 +19,7 @@ import com.theminequest.MineQuest.MineQuest;
 
 public class MQCoreNPC extends JavaPlugin {
 	private static PluginDescriptionFile description = null;
+	public static MQCoreNPC activePlugin;
 	
 	/**
 	 * Quest Giver npcs
@@ -112,6 +113,7 @@ public class MQCoreNPC extends JavaPlugin {
 		if (!getDataFolder().exists())
 			getDataFolder().mkdirs();
 		description = this.getDescription();
+		activePlugin = this;
 		
 		/**
 		 * Checks For MineQuest for obvious reasons.
