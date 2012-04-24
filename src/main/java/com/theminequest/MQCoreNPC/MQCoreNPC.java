@@ -64,7 +64,7 @@ public class MQCoreNPC extends JavaPlugin {
 	}
 
 	public static void log(Level level, String msg) {
-		Logger.getLogger("Minecraft").log(level, "[MineQuest] " + msg);
+		Logger.getLogger("Minecraft").log(level, "[MineQuest-NPC] " + msg);
 	}
 
 	public static String getVersion() {
@@ -89,23 +89,11 @@ public class MQCoreNPC extends JavaPlugin {
 	}
 	
 	private boolean setupPermissions() {
-		RegisteredServiceProvider<Permission> permissionProvider = getServer()
-				.getServicesManager().getRegistration(
-						net.milkbowl.vault.permission.Permission.class);
-		if (permissionProvider != null) {
-			permission = permissionProvider.getProvider();
-		}
-		return (permission != null);
+		return (MineQuest.permission != null);
 	}
 
 	private boolean setupEconomy() {
-		RegisteredServiceProvider<Economy> economyProvider = getServer()
-				.getServicesManager().getRegistration(
-						net.milkbowl.vault.economy.Economy.class);
-		if (economyProvider != null) {
-			economy = economyProvider.getProvider();
-		}
-		return (economy != null);
+		return (MineQuest.economy != null);
 	}
 	
 	@Override

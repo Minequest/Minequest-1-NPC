@@ -81,10 +81,6 @@ public class NPCQuester {
 		return npcManager.getNPCs();
 	}
 	
-	public void writeToYML(String Name, NPCMode mode, World world, double x, double y, double z, double pitch, double yaw) {
-		//TODO: Moving to YML writer. 
-	}
-	
 	private void makeNPC(String Name, NPCMode mode, World world, Location location) {
 		//TODO: Add Check for npc already exists. 
 		//Check YML FILE FOR NPC with name. 
@@ -92,13 +88,14 @@ public class NPCQuester {
 		double x = location.getX();
 		double y = location.getY();
 		double z = location.getZ();
-		double pitch = location.getPitch();
-		double yaw = location.getYaw();
-		writeToYML(name, mode, world, x, y, z, pitch, yaw);
+		float pitch = location.getPitch();
+		float yaw = location.getYaw();
+		writeToYML(name, mode, world, x, y, z, yaw, pitch);
 	}
 	
-	private void loadNPCs(NPCMode mode, World world, double x, double y, double z, double pitch, double yaw) {
-		
+	private void loadNPCs(NPCMode mode, World world, double x, double y, double z, float yaw, float pitch) {
+		Location spawnLocation = new Location(world, x, y, z, yaw, pitch);
+		npcManager.spawnHumanNPC(name, spawnLocation);
 	}
 	
 	public void clearTarget(Player player) {
