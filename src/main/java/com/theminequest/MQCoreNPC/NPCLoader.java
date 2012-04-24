@@ -1,6 +1,6 @@
 /*
- * MineQuest - Bukkit Plugin for adding RPG characteristics to minecraft
- * Copyright (C) 2011  Jason Monk
+ * MineQuest - Bukkit Plugin for adding RPG characteristics to Minecraft
+ * Copyright (C) 2012 The MineQuest Team
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -50,7 +50,7 @@ import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.NPC;
 import com.topcat.npclib.nms.NPCEntity;
 
-public class NPCQuester {
+public class NPCLoader {
 	
 	public NPCManager npcManager = new NPCManager(MQCoreNPC.activePlugin);
 	
