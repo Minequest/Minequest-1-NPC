@@ -15,39 +15,13 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.theminequest.MQCoreEvents.RegisterEvents;
+import com.theminequest.MQCoreNPC.Storage.GeneralNpcManager;
 import com.theminequest.MineQuest.MineQuest;
 
 public class MQCoreNPC extends JavaPlugin {
 	private static PluginDescriptionFile description = null;
 	public static MQCoreNPC activePlugin;
-	
-	/**
-	 * Quest Giver npcs
-	 */
-	public FileConfiguration npcQuestGivers = null;
-	public File questGivers = null;
-	public String questGiversFileName = "Quest_Givers.yml";
-	
-	/**
-	 * Mercenaries npcs
-	 */
-	public FileConfiguration npcMercs = null;
-	public File mercs = null;
-	public String mercsFileName = "Mercenary_Npcs.yml";
-	
-	/**
-	 * Merchant npcs
-	 */
-	public FileConfiguration npcMerchant = null;
-	public File merchant = null;
-	public String merchantFileName = "Merchant_Npcs.yml";
-	
-	/**
-	 * General npcs
-	 */
-	public FileConfiguration npcGeneral = null;
-	public File general = null;
-	public String gerenalFileName = "General_Npcs.yml";
+    public GeneralNpcManager generalNPCs;
 	
 	/**
 	 * Access Permissions via Vault
@@ -75,17 +49,8 @@ public class MQCoreNPC extends JavaPlugin {
 		return description.getName();
 	}
 	
-	public File loadNewConfig(String fileName, File storage) {
-	    File npcPropFile = new File(MineQuest.activePlugin.getDataFolder().getAbsolutePath()+File.separator+"npcs", fileName);
-	    FileConfiguration defaults = YamlConfiguration.loadConfiguration(storage);
-	 
-	    // Look for defaults in the jar
-	    InputStream defConfigStream = getResource(fileName+".yml");
-	    if (defConfigStream != null) {
-	        YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-	        defaults.setDefaults(defConfig);
-	    }
-	    return npcPropFile;
+	public InputStream resource(String fileName){
+		return getResource(fileName+".yml");
 	}
 	
 	private boolean setupPermissions() {
@@ -102,6 +67,8 @@ public class MQCoreNPC extends JavaPlugin {
 			getDataFolder().mkdirs();
 		description = this.getDescription();
 		activePlugin = this;
+		
+		generalNPCs = new GeneralNpcManager();
 		
 		/**
 		 * Checks For MineQuest for obvious reasons.

@@ -45,6 +45,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.material.MaterialData;
 
+import com.theminequest.MQCoreNPC.Storage.GeneralNpcManager;
 import com.theminequest.MineQuest.MineQuest;
 import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.NPC;
@@ -90,7 +91,6 @@ public class NPCLoader {
 		double z = location.getZ();
 		float pitch = location.getPitch();
 		float yaw = location.getYaw();
-		writeToYML(name, mode, world, x, y, z, yaw, pitch);
 	}
 	
 	private void loadNPCs(NPCMode mode, World world, double x, double y, double z, float yaw, float pitch) {
@@ -110,22 +110,4 @@ public class NPCLoader {
 		return mode;
 	}
 
-	
-	private boolean isInvulnerable() {
-		if ((mode == NPCMode.BLACKSMITH) && 
-				(mode == NPCMode.GENERIC_INVULNERABLE) && 
-				(mode == NPCMode.QUEST_INVULNERABLE) && 
-				(mode == NPCMode.MEDIC) && 
-				(mode == NPCMode.STORE)) {
-			return true;
-		}
-		return false;
-	}
-
-	private boolean isMerc() {
-		if ((mode == NPCMode.MERC_OWNED) || (mode == NPCMode.MERC_UNOWNED) || (mode == NPCMode.STORE)) {
-			return true;
-		}
-		return false;
-	}
 }
