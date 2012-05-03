@@ -73,7 +73,6 @@ public class NPCLoader {
 	private long lastHitDamage;
 	private boolean safeFromMobs;
 	private LivingEntity attackTarget;
-	private NPCMode mode;
 	private String quest_file;
 	private Location target = null;
 	private String[] walk_message;
@@ -82,32 +81,9 @@ public class NPCLoader {
 		return npcManager.getNPCs();
 	}
 	
-	private void makeNPC(String Name, NPCMode mode, World world, Location location) {
-		//TODO: Add Check for npc already exists. 
-		//Check YML FILE FOR NPC with name. 
-		npcManager.spawnHumanNPC(name, location);
-		double x = location.getX();
-		double y = location.getY();
-		double z = location.getZ();
-		float pitch = location.getPitch();
-		float yaw = location.getYaw();
-	}
-	
-	private void loadNPCs(NPCMode mode, World world, double x, double y, double z, float yaw, float pitch) {
+	public void loadNPCs(World world, double x, double y, double z, float yaw, float pitch) {
 		Location spawnLocation = new Location(world, x, y, z, yaw, pitch);
 		npcManager.spawnHumanNPC(name, spawnLocation);
 	}
 	
-	public void clearTarget(Player player) {
-		if (player == null) return;
-		if (attackTarget == null) return;
-		if (attackTarget.getEntityId() == player.getEntityId()) {
-			attackTarget = null;
-		}
-	}
-	
-	public NPCMode getMode() {
-		return mode;
-	}
-
 }
