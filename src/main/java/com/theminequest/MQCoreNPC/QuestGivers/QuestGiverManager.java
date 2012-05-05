@@ -29,7 +29,7 @@ public class QuestGiverManager {
 	private String[] quests;
 	private long[] recommend;
 	
-	public void NPCDescription(String n, Location l) throws IOException{
+	public void CreateQuestNPC(String n, Location l) throws IOException{
 		name = n;
 		id = 0; // Implement some sort of tracking mechanism in NPCManager
 		location = l;

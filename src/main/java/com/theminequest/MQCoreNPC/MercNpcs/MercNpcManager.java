@@ -1,4 +1,4 @@
-package com.theminequest.MQCoreNPC.GeneralNpc;
+package com.theminequest.MQCoreNPC.MercNpcs;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import org.yaml.snakeyaml.Yaml;
 import com.theminequest.MQCoreNPC.MQCoreNPC;
 import com.theminequest.MineQuest.MineQuest;
 
-public class GeneralNpcManager {
+public class MercNpcManager {
 	
 	private File file;
 	private String name;
@@ -28,7 +28,7 @@ public class GeneralNpcManager {
 	private String cape;
 	private String[] rumors;
 	
-	public void CreateGeneralNPC(String n, Location l) throws IOException{
+	public void CreateMercNPC(String n, Location l) throws IOException{
 		name = n;
 		id = 0; // Implement some sort of tracking mechanism in NPCManager
 		location = l;
