@@ -1,0 +1,19 @@
+Mercenaries Npcs
+==================================
+Merc NPCs are able to be bought by the player to use as team members and can be used to help complete quests. For now they will all be warriors 
+and not fight with spells. Later Skill options may be added. 
+
+They will be found under the npc folder in the sub-directory: General.
+
+Npc File Layout:
+
+Name: 
+	Spawn_Location:
+		X: 
+		Y: 
+		Z: 
+	Click_Message_Unowned:
+	Click_Message_Owned: 
+	Cost:
+	Respawn_Time:
+	 	

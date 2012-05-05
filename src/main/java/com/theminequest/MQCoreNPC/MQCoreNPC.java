@@ -15,7 +15,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.theminequest.MQCoreEvents.RegisterEvents;
-import com.theminequest.MQCoreNPC.Storage.GeneralNpcManager;
+import com.theminequest.MQCoreNPC.GeneralNpc.GeneralNpcManager;
 import com.theminequest.MineQuest.MineQuest;
 
 public class MQCoreNPC extends JavaPlugin {

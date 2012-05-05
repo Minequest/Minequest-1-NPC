@@ -45,37 +45,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.material.MaterialData;
 
-import com.theminequest.MQCoreNPC.Storage.GeneralNpcManager;
 import com.theminequest.MineQuest.MineQuest;
 import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.NPC;
 import com.topcat.npclib.nms.NPCEntity;
 
 public class NPCLoader {
-	
+	public String name;
 	public NPCManager npcManager = new NPCManager(MQCoreNPC.activePlugin);
 	
 	private static String getName(String name) {
-		return name.replaceAll("_", " ");
+		return name.replaceAll(" ", "_");
 	}
-
-	private String name;
-	private int Health;
-	private NPCEntity entity;
-	private double killValue;
-	private int repairCost;
-	private String followPlayerName;
-	private ItemStack wieldItem = null;
-	private int heal_amount;
-	private String[] hitMessage;
-	private ItemStack killDrop;
-	private String lastAttacker;
-	private long lastHitDamage;
-	private boolean safeFromMobs;
-	private LivingEntity attackTarget;
-	private String quest_file;
-	private Location target = null;
-	private String[] walk_message;
 	
 	public List<NPC> npcs() {
 		return npcManager.getNPCs();

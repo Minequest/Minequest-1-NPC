@@ -1,4 +1,4 @@
-package com.theminequest.MQCoreNPC.NPC;
+package com.theminequest.MQCoreNPC.QuestGivers;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,7 +16,7 @@ import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Profile.Section;
 import org.ini4j.spi.IniBuilder;
 
-public class NPCDescription {
+public class QuestGiverManager {
 	
 	private File file;
 	private String name;
@@ -29,7 +29,7 @@ public class NPCDescription {
 	private String[] quests;
 	private long[] recommend;
 	
-	public NPCDescription(String n, Location l) throws IOException{
+	public void NPCDescription(String n, Location l) throws IOException{
 		name = n;
 		id = 0; // Implement some sort of tracking mechanism in NPCManager
 		location = l;
@@ -49,7 +49,7 @@ public class NPCDescription {
 	 * @throws InvalidFileFormatException
 	 * @throws IOException
 	 */
-	public NPCDescription(File f) throws InvalidFileFormatException, IOException{
+	public void NPCDescription(File f) throws InvalidFileFormatException, IOException{
 		Ini ini = new Ini();
 		ini.load(f);
 		file = f;

@@ -1,0 +1,24 @@
+General Npcs:
+=====================================
+General NPCs are the most basic npcs. They are the not quest givers but serve other purposes such as info givers, attackers(people that will attack you), guards. 
+
+Shopkeepers may also be under this type. 
+
+They will be found under the npc folder in the sub-directory: General.
+
+Npc File Layout:
+
+Name: 
+	Type: Guard, Shop, Attacker, Info
+	Location:
+		X: 
+		Y: 
+		Z: 
+	Click_Messages:
+		1: 
+		2: 
+		3: 
+	Vulnerable: True, False
+	Kill_Exp: 
+	Guard_Radius: 
+	

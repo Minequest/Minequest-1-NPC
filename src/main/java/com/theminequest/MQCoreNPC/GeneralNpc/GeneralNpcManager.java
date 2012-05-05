@@ -1,4 +1,4 @@
-package com.theminequest.MQCoreNPC.Storage;
+package com.theminequest.MQCoreNPC.GeneralNpc;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,6 @@ import org.ini4j.InvalidFileFormatException;
 import org.yaml.snakeyaml.Yaml;
 
 import com.theminequest.MQCoreNPC.MQCoreNPC;
-import com.theminequest.MQCoreNPC.NPCLoader;
 import com.theminequest.MineQuest.MineQuest;
 
 public class GeneralNpcManager {
