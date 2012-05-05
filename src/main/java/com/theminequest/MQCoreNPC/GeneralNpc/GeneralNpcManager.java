@@ -35,7 +35,7 @@ public class GeneralNpcManager {
 		skin = "http://www.minecraft.net/images/char.png";
 		cape = "";
 		rumors = null;
-		file = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/"+name+".ini");
+		file = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/"+name+".npc");
 		file.createNewFile();
 	}
 
