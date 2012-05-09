@@ -45,7 +45,7 @@ public class QuestGiverManager {
 	 * @param l
 	 * @throws IOException
 	 */
-	public void CreateQuestNPC(String n, Location l) throws IOException{
+	public void createQuestNPC(String n, Location l) throws IOException{
 		name = n.replaceAll(" ", "_");;
 		location = l;
 		skin = "http://www.minecraft.net/images/char.png";
@@ -58,6 +58,20 @@ public class QuestGiverManager {
 		file.createNewFile();
 		storage.save(name, location, skin, cape, noquestmessage, havequestmessage, quests, recommend);
 		spawnNPC(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+	}
+	
+	public void loadPathing(String n, ArrayList<Location> path){
+		int x = 0;
+		while ( x<= path.size()){
+			NPC npc = getNpc(n);
+			npc.walkTo(path.get(x));
+			x++;
+		}
+	}
+	
+	public NPC getNpc(String npcName){
+		NPC npc = QuestGiverManager.getNPC(npcName);
+		return npc;
 	}
 	
 	public List<NPC> npcs() {
