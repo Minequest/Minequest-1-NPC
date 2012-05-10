@@ -22,6 +22,7 @@ import org.ini4j.spi.IniBuilder;
 import com.theminequest.MQCoreNPC.MQCoreNPC;
 import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.NPC;
+import com.topcat.npclib.pathing.NPCPath;
 
 public class QuestGiverManager {
 	private File file;

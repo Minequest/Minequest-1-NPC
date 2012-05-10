@@ -16,12 +16,14 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.theminequest.MQCoreEvents.RegisterEvents;
 import com.theminequest.MQCoreNPC.GeneralNpc.GeneralNpcManager;
+import com.theminequest.MQCoreNPC.QuestGivers.QuestGiverManager;
 import com.theminequest.MineQuest.MineQuest;
 
 public class MQCoreNPC extends JavaPlugin {
 	private static PluginDescriptionFile description = null;
 	public static MQCoreNPC activePlugin;
-    public GeneralNpcManager generalNPCs;
+    public static GeneralNpcManager generalNPCs;
+    public static QuestGiverManager questNPCs;
 	
 	/**
 	 * Access Permissions via Vault
@@ -68,7 +70,8 @@ public class MQCoreNPC extends JavaPlugin {
 		description = this.getDescription();
 		activePlugin = this;
 		
-		generalNPCs = new GeneralNpcManager();
+		questNPCs = new QuestGiverManager();
+		questNPCs.spawnExistingNPCs();
 		
 		/**
 		 * Checks For MineQuest for obvious reasons.

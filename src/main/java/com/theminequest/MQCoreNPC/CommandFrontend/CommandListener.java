@@ -20,6 +20,7 @@
 package com.theminequest.MQCoreNPC.CommandFrontend;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,9 +35,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.theminequest.MQCoreNPC.MQCoreNPC;
 import com.topcat.npclib.NPCManager;
 
 public class CommandListener implements CommandExecutor{
+	private String npcName;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String command, String[] args) {
 		Player player = null;
@@ -55,7 +58,7 @@ public class CommandListener implements CommandExecutor{
 
 		/*     Npc Commands:
 		 * ---------------------
-		 * npc create [npc name]
+		 * npc create [npc type] [npc name]
 		 * npc delete [npc name]
 		 * npc reload
 		 */
@@ -63,7 +66,16 @@ public class CommandListener implements CommandExecutor{
 		if(command.equalsIgnoreCase("npc")){
 			Location location = player.getLocation();
 			if(args[0].equalsIgnoreCase("create")){
-				return true;
+				if(!args[1].equalsIgnoreCase("quest")){
+					npcName = args[2].toString();
+					try {
+						MQCoreNPC.questNPCs.createQuestNPC(npcName, location);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return true;
+				}
 			}
 		}
 		return false;
