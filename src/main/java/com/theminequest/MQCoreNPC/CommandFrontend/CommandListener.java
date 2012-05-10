@@ -66,13 +66,14 @@ public class CommandListener implements CommandExecutor{
 		if(command.equalsIgnoreCase("npc")){
 			Location location = player.getLocation();
 			if(args[0].equalsIgnoreCase("create")){
-				if(!args[1].equalsIgnoreCase("quest")){
+				if(args[1].equalsIgnoreCase("quest")){
 					npcName = args[2].toString();
-					try {
-						MQCoreNPC.questNPCs.createQuestNPC(npcName, location);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if(!args[2].isEmpty()){
+						try {
+							MQCoreNPC.questNPCs.createQuestNPC(npcName, location);
+						} catch (IOException e) {
+							player.sendMessage("Creation failed.");
+						}
 					}
 					return true;
 				}
