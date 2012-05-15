@@ -3,10 +3,13 @@ package com.theminequest.MQCoreNPC.GeneralNpc;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,94 +19,116 @@ import org.ini4j.InvalidFileFormatException;
 import org.yaml.snakeyaml.Yaml;
 
 import com.theminequest.MQCoreNPC.MQCoreNPC;
+import com.theminequest.MQCoreNPC.GeneralNpc.GeneralNpcStorage;
 import com.theminequest.MineQuest.MineQuest;
+import com.topcat.npclib.NPCManager;
+import com.topcat.npclib.entity.NPC;
 
 public class GeneralNpcManager {
-	
 	private File file;
 	private String name;
-	private long id;
-	private Location location;
-	private String skin;
+	private Location location;                                                         
+	private int locX;                                                                  
+	private int locY;                                                                  
+	private int locZ;                                                                  
+	private String skin;                                                               
 	private String cape;
-	private String[] rumors;
+	private String[] hitMessages;
+	private GeneralNpcStorage storage = new GeneralNpcStorage();
+	public NPCManager GeneralNpcManager = new NPCManager(MQCoreNPC.activePlugin);
 	
-	public void CreateGeneralNPC(String n, Location l) throws IOException{
-		name = n;
-		id = 0; // Implement some sort of tracking mechanism in NPCManager
+	/**
+	 * Creates a default file for the given npc name and location. 
+	 * @param n
+	 * @param l
+	 * @throws IOException
+	 */
+	public void createQuestNPC(String n, Location l) throws IOException{
+		name = n.replaceAll(" ", "_");;
 		location = l;
 		skin = "http://www.minecraft.net/images/char.png";
 		cape = "";
-		rumors = null;
+		hitMessages = new String[0];
 		file = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/"+name+".npc");
 		file.createNewFile();
+		storage.save(name, location, skin, cape, hitMessages);
+		spawnNPC(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 	}
-
-	/**
-	 * Create an NPC description object from a file.
-	 * @param f
-	 * @throws InvalidFileFormatException
-	 * @throws IOException
-	 */
-	public void NPCDescription(File f) throws InvalidFileFormatException, IOException{
-		Ini ini = new Ini();
-		ini.load(f);
-		file = f;
-		
-		/*
-		 * General NPC Properties. This includes the name, ID number,
-		 * location of the NPC, and messages it tells the user.
-		 * In addition, if you have Spoutcraft, you can give the NPC
-		 * a skin and cape.
-		 */
-		Ini.Section properties = ini.get("Properties");
-		name = properties.get("name");
-		id = Long.parseLong(properties.get("id"));
-		String world = properties.get("world");
-		double locationX = Double.parseDouble(properties.get("locX"));
-		double locationY = Double.parseDouble(properties.get("locY"));
-		double locationZ = Double.parseDouble(properties.get("locZ"));
-		location = new Location(Bukkit.getWorld(world),locationX,locationY,locationZ);
-		if (properties.containsKey("skin")) skin = properties.get("skin");
-		else skin = "http://www.minecraft.net/images/char.png";
-		if (properties.containsKey("cape")) cape = properties.get("cape");
-		else cape = "";
+	
+	public void loadPathing(String n, ArrayList<Location> path){
+		int x = 0;
+		while ( x<= path.size()){
+			NPC npc = getNpc(n);
+			npc.walkTo(path.get(x));
+			x++;
+		}
+	}
+	
+	public NPC getNpc(String npcName){
+		NPC npc = GeneralNpcManager.getNPC(npcName);
+		return npc;
+	}
+	
+	public List<NPC> npcs() {
+		return GeneralNpcManager.getNPCs();
+	}
+	
+	public void spawnNPC(World world, double x, double y, double z, float yaw, float pitch) {
+		Location spawnLocation = new Location(world, x, y, z, yaw, pitch);
+		GeneralNpcManager.spawnHumanNPC(name, spawnLocation);
+	}
+	
+	public void spawnExistingNPCs(){
+		File f = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/");
+		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
+		int n = 0;
+		while (n <= files.size()){
+			
+			try {
+				storage.LoadNPCDescription(files.get(n));
+				name = storage.getName();
+				location = storage.getLocation();
+				spawnNPC(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());				
+			} catch (InvalidFileFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			n++;
+		}
 	}
 	
 	/**
-	 * Save the NPC description to a file.
-	 * @throws IOException if unable to save.
+	 * 
+	 * @return
+	 * @throws IOException 
+	 * @throws InvalidFileFormatException 
 	 */
-	public void save() throws IOException{
-		Ini ini = new Ini();
-		Ini.Section properties = ini.add("Properties");
-		properties.put("name", name);
-		properties.put("id",id);
-		properties.put("world", location.getWorld().getName());
-		properties.put("locX", location.getX());
-		properties.put("locY", location.getY());
-		properties.put("locZ", location.getZ());
-		properties.put("skin", skin);
-		properties.put("cape", cape);
-		ini.store(file);
+	public void getDescription(String n){
+		try {
+			storage.LoadNPCDescription(n);
+		} catch (InvalidFileFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		name = storage.getName();
+		locX = storage.getLocation().getBlockX();
+		locY = storage.getLocation().getBlockY();
+		locZ = storage.getLocation().getBlockZ();
+		skin = storage.getSkin();
+		cape = storage.getCape();
+		hitMessages = storage.getQuests();
 	}
 	
 	/* Automatically generated getters and setters by Eclipse */
 
 	public String getName() {
-		return name;
+		return name.replaceAll(" ", "_");
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public Location getLocation() {
@@ -128,6 +153,5 @@ public class GeneralNpcManager {
 
 	public void setCape(String cape) {
 		this.cape = cape;
-	}
-
+	}	
 }
