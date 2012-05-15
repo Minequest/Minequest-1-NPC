@@ -49,7 +49,7 @@ public class CommandListener implements CommandExecutor{
 		if (args.length == 0){
 			if(cmd.getName().equalsIgnoreCase("npc") && player != null){
 				sender.sendMessage("Npc Commands:");
-				sender.sendMessage("    /npc create <Name of Npc> - Creates a npc at your location.");
+				sender.sendMessage("    /npc create <Type of Npc> <Name of Npc> - Creates a npc at your location.");
 				sender.sendMessage("    /npc remove <Name of Npc> - Removes the npc.");
 				sender.sendMessage("    /npc reload - Reloads all properties from the npc flatfile. ");
 				return true;

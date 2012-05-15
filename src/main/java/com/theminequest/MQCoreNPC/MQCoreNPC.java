@@ -36,7 +36,7 @@ public class MQCoreNPC extends JavaPlugin {
 	
 	
 	public static void log(String msg) {
-		log(Level.INFO, msg);
+		log(Level.INFO, "[MineQuest-NPC]" + msg);
 	}
 
 	public static void log(Level level, String msg) {
@@ -69,10 +69,7 @@ public class MQCoreNPC extends JavaPlugin {
 			getDataFolder().mkdirs();
 		description = this.getDescription();
 		activePlugin = this;
-		
-		questNPCs = new QuestGiverManager();
-		questNPCs.spawnExistingNPCs();
-		
+
 		/**
 		 * Checks For MineQuest for obvious reasons.
 		 */
@@ -95,6 +92,9 @@ public class MQCoreNPC extends JavaPlugin {
 			log(Level.SEVERE,"[Vault] Economy could not be setup!");
 		
 		
+		questNPCs = new QuestGiverManager();
+		questNPCs.spawnExistingNPCs();
+				
 		//TODO: Load Command front end.
 		//TODO: Load Permanent npcs.
 		//TODO: Load properties for npcs.
