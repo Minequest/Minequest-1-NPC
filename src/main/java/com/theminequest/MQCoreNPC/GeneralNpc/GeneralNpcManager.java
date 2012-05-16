@@ -27,13 +27,26 @@ import com.topcat.npclib.entity.NPC;
 public class GeneralNpcManager {
 	private File file;
 	private String name;
-	private Location location;                                                         
-	private int locX;                                                                  
-	private int locY;                                                                  
-	private int locZ;                                                                  
-	private String skin;                                                               
+	private String skin;
 	private String cape;
+	private boolean vunerable;
+	private boolean isAMerc;
+	private boolean retaliate;
+	private Location location;     
+	private double locX;
+	private double locY;
+	private double locZ;
+	private boolean wander;
+	private double wanderDistance;
 	private String[] hitMessages;
+	private double killexp;
+	private double killgold;
+	private String[] itemDrops;
+	
+	//Pathing - Should work.
+	ArrayList<Location> pathing;
+	private Location nextLoc;
+	
 	private GeneralNpcStorage storage = new GeneralNpcStorage();
 	public NPCManager GeneralNpcManager = new NPCManager(MQCoreNPC.activePlugin);
 	
@@ -48,6 +61,8 @@ public class GeneralNpcManager {
 		location = l;
 		skin = "http://www.minecraft.net/images/char.png";
 		cape = "";
+		vunerable = false;
+		isAMerc = false;
 		hitMessages = new String[0];
 		file = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/"+name+".npc");
 		file.createNewFile();
@@ -55,11 +70,11 @@ public class GeneralNpcManager {
 		spawnNPC(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 	}
 	
-	public void loadPathing(String n, ArrayList<Location> path){
+	public void loadPathing(String n, ArrayList<Location> pathing){
 		int x = 0;
-		while ( x<= path.size()){
+		while ( x<= pathing.size()){
 			NPC npc = getNpc(n);
-			npc.walkTo(path.get(x));
+			npc.walkTo(pathing.get(x));
 			x++;
 		}
 	}
@@ -83,7 +98,6 @@ public class GeneralNpcManager {
 		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
 		int n = 0;
 		while (n <= files.size()){
-			
 			try {
 				storage.LoadNPCDescription(files.get(n));
 				name = storage.getName();

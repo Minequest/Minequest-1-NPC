@@ -22,7 +22,6 @@ public class GeneralNpcStorage {
 	private String havequestmessage;
 	private String[] quests;
 	private String[] recommend;
-	private QuestGiverManager qgm;
 	
 	/**
 	 * Load an NPC description object from a name.
@@ -125,14 +124,15 @@ public class GeneralNpcStorage {
 		Ini ini = new Ini();
 		Ini.Section properties = ini.add("Properties");
 		properties.put("name", name);
-		properties.put("id",id);
+		properties.put("Vulnerable", vulnerable);
 		properties.put("world", location.getWorld().getName());
 		properties.put("locX", location.getX());
 		properties.put("locY", location.getY());
 		properties.put("locZ", location.getZ());
 		properties.put("skin", skin);
 		properties.put("cape", cape);
-		Ini.Section questsection = ini.add("Quests");
+		Ini.Section pathing = ini.add("Pathing");
+		pathing.put("Waypoint1", location.getX() + "," + location.getBlockY() + "," + location.getBlockZ());
 		ini.store(file);
 	}
 	
@@ -141,7 +141,7 @@ public class GeneralNpcStorage {
 		return name;
 	}
 	
-	//Getters  and setters. 
+	//Getters and setters. 
 	
 	public String getName() {
 		return name;
