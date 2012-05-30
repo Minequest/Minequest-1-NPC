@@ -120,7 +120,7 @@ public class GeneralNpcStorage {
 	 * Save the NPC description to a file.
 	 * @throws IOException if unable to save.
 	 */
-	public void save(String name, Location location, String skin, String cape, String[] hitMessage) throws IOException{
+	public void save(String name, Location location, String skin, String cape, String[] hitMessage, boolean vulnerable) throws IOException{
 		Ini ini = new Ini();
 		Ini.Section properties = ini.add("Properties");
 		properties.put("name", name);

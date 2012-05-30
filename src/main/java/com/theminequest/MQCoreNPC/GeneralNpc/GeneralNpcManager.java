@@ -29,7 +29,7 @@ public class GeneralNpcManager {
 	private String name;
 	private String skin;
 	private String cape;
-	private boolean vunerable;
+	private boolean vulnerable;
 	private boolean isAMerc;
 	private boolean retaliate;
 	private Location location;     
@@ -61,12 +61,12 @@ public class GeneralNpcManager {
 		location = l;
 		skin = "http://www.minecraft.net/images/char.png";
 		cape = "";
-		vunerable = false;
+		vulnerable = false;
 		isAMerc = false;
 		hitMessages = new String[0];
 		file = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/"+name+".npc");
 		file.createNewFile();
-		storage.save(name, location, skin, cape, hitMessages);
+		storage.save(name, location, skin, cape, hitMessages, vulnerable);
 		spawnNPC(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 	}
 	
