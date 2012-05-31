@@ -93,8 +93,12 @@ public class MQCoreNPC extends JavaPlugin {
 		
 		
 		questNPCs = new QuestGiverManager();
-		questNPCs.spawnExistingNPCs();
-				
+		if(getDataFolder().exists()){
+			File file = new File(getDataFolder()+"NPC/"+"General/");
+			if(file.exists()){
+			questNPCs.spawnExistingNPCs();
+			}
+		}
 		//TODO: Load Command front end.
 		//TODO: Load Permanent npcs.
 		//TODO: Load properties for npcs.
