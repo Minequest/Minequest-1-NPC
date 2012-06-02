@@ -8,14 +8,13 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.theminequest.MQCoreEvents.RegisterEvents;
 import com.theminequest.MQCoreNPC.GeneralNpc.GeneralNpcManager;
+import com.theminequest.MQCoreNPC.MercNpcs.MercNpcManager;
 import com.theminequest.MQCoreNPC.QuestGivers.QuestGiverManager;
 import com.theminequest.MineQuest.MineQuest;
 
@@ -24,6 +23,7 @@ public class MQCoreNPC extends JavaPlugin {
 	public static MQCoreNPC activePlugin;
     public static GeneralNpcManager generalNPCs;
     public static QuestGiverManager questNPCs;
+    public static MercNpcManager mercNPCs;
 	
 	/**
 	 * Access Permissions via Vault
@@ -69,21 +69,6 @@ public class MQCoreNPC extends JavaPlugin {
 			getDataFolder().mkdirs();
 		description = this.getDescription();
 		activePlugin = this;
-
-		/**
-		 * Checks For MineQuest for obvious reasons.
-		 */
-		if (!getServer().getPluginManager().isPluginEnabled("MineQuest-Core")){
-			MineQuest.log(Level.SEVERE, "[NPC] You need to have minequest enabled on the server.");
-		}
-		
-		/**
-		 * Check If Vault is active. This may prevent some of the dumb questions we get with people trying to use our plugin. 
-		 */
-		if (!getServer().getPluginManager().isPluginEnabled("Vault")){
-			MineQuest.log(Level.SEVERE, "[Core] You Require Vault Vault to run this plugin. Minequest will now shut down.");
-			onDisable();
-		}
 		
 		if (!setupPermissions())
 			log(Level.SEVERE,"[Vault] Permissions could not be setup!");
@@ -94,9 +79,17 @@ public class MQCoreNPC extends JavaPlugin {
 		
 		questNPCs = new QuestGiverManager();
 		if(getDataFolder().exists()){
-			File file = new File(getDataFolder()+"NPC/"+"General/");
+			File file = new File(getDataFolder()+"General/");
 			if(file.exists()){
-			questNPCs.spawnExistingNPCs();
+				questNPCs.spawnExistingNPCs();
+			}
+			file = new File(getDataFolder()+"Merc/");
+			if(file.exists()){
+				mercNPCs.spawnExistingNPCs();
+			}
+			file = new File(getDataFolder()+"Quest/");
+			if(file.exists()){
+				questNPCs.spawnExistingNPCs();
 			}
 		}
 		//TODO: Load Command front end.

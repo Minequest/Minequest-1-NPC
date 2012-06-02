@@ -19,8 +19,6 @@ import org.ini4j.InvalidFileFormatException;
 import org.yaml.snakeyaml.Yaml;
 
 import com.theminequest.MQCoreNPC.MQCoreNPC;
-import com.theminequest.MQCoreNPC.GeneralNpc.GeneralNpcStorage;
-import com.theminequest.MineQuest.MineQuest;
 import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.NPC;
 
@@ -56,7 +54,7 @@ public class MercNpcManager {
 	 * @param l
 	 * @throws IOException
 	 */
-	public void createQuestNPC(String n, Location l) throws IOException{
+	public void createMercNPC(String n, Location l) throws IOException{
 		name = n.replaceAll(" ", "_");;
 		location = l;
 		skin = "http://www.minecraft.net/images/char.png";

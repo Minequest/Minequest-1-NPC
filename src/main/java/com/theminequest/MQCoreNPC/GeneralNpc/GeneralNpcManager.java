@@ -19,7 +19,7 @@ import org.ini4j.InvalidFileFormatException;
 import org.yaml.snakeyaml.Yaml;
 
 import com.theminequest.MQCoreNPC.MQCoreNPC;
-import com.theminequest.MQCoreNPC.GeneralNpc.GeneralNpcStorage;
+import com.theminequest.MQCoreNPC.GeneralNpc.GeneralNpc;
 import com.theminequest.MineQuest.MineQuest;
 import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.NPC;
@@ -27,28 +27,12 @@ import com.topcat.npclib.entity.NPC;
 public class GeneralNpcManager {
 	private File file;
 	private String name;
-	private String skin;
-	private String cape;
-	private boolean vulnerable;
-	private boolean isAMerc;
-	private boolean retaliate;
-	private Location location;     
-	private double locX;
-	private double locY;
-	private double locZ;
-	private boolean wander;
-	private double wanderDistance;
-	private String[] hitMessages;
-	private double killexp;
-	private double killgold;
-	private String[] itemDrops;
-	
+
 	//Pathing - Should work.
 	ArrayList<Location> pathing;
 	private Location nextLoc;
 	
-	private GeneralNpcStorage storage = new GeneralNpcStorage();
-	public NPCManager GeneralNpcManager = new NPCManager(MQCoreNPC.activePlugin);
+	public NPCManager GeneralNPCManager = new NPCManager(MQCoreNPC.activePlugin);
 	
 	/**
 	 * Creates a default file for the given npc name and location. 
@@ -58,15 +42,16 @@ public class GeneralNpcManager {
 	 */
 	public void createQuestNPC(String n, Location l) throws IOException{
 		name = n.replaceAll(" ", "_");;
-		location = l;
-		skin = "http://www.minecraft.net/images/char.png";
-		cape = "";
-		vulnerable = false;
-		isAMerc = false;
-		hitMessages = new String[0];
+		Location location = l;
+		String skin = "http://www.minecraft.net/images/char.png";
+		String cape = "";
+		boolean vulnerable = false;
+		boolean isAMerc = false;
+		String[] hitMessages = new String[0];
 		file = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/"+name+".npc");
 		file.createNewFile();
-		storage.save(name, location, skin, cape, hitMessages, vulnerable);
+		GeneralNpc newNpc = new GeneralNpc();
+		newNpc.GeneralNpc(name, location);
 		spawnNPC(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 	}
 	
@@ -80,25 +65,26 @@ public class GeneralNpcManager {
 	}
 	
 	public NPC getNpc(String npcName){
-		NPC npc = GeneralNpcManager.getNPC(npcName);
+		NPC npc = GeneralNPCManager.getNPC(npcName);
 		return npc;
 	}
 	
 	public List<NPC> npcs() {
-		return GeneralNpcManager.getNPCs();
+		return GeneralNPCManager.getNPCs();
 	}
 	
 	public void spawnNPC(World world, double x, double y, double z, float yaw, float pitch) {
 		Location spawnLocation = new Location(world, x, y, z, yaw, pitch);
-		GeneralNpcManager.spawnHumanNPC(name, spawnLocation);
+		GeneralNPCManager.spawnHumanNPC(name, spawnLocation);
 	}
-	
+	/*
 	public void spawnExistingNPCs(){
 		File f = new File(MQCoreNPC.activePlugin.getDataFolder()+"NPC/"+"General/");
 		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
 		int n = 0;
 		while (n <= files.size()){
 			try {
+				GeneralNpc 
 				storage.LoadNPCDescription(files.get(n));
 				name = storage.getName();
 				location = storage.getLocation();
@@ -111,6 +97,7 @@ public class GeneralNpcManager {
 			n++;
 		}
 	}
+	*/
 	
 	/**
 	 * 
@@ -118,22 +105,7 @@ public class GeneralNpcManager {
 	 * @throws IOException 
 	 * @throws InvalidFileFormatException 
 	 */
-	public void getDescription(String n){
-		try {
-			storage.LoadNPCDescription(n);
-		} catch (InvalidFileFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		name = storage.getName();
-		locX = storage.getLocation().getBlockX();
-		locY = storage.getLocation().getBlockY();
-		locZ = storage.getLocation().getBlockZ();
-		skin = storage.getSkin();
-		cape = storage.getCape();
-		hitMessages = storage.getQuests();
-	}
+
 	
 	/* Automatically generated getters and setters by Eclipse */
 
@@ -144,28 +116,4 @@ public class GeneralNpcManager {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	public String getSkin() {
-		return skin;
-	}
-
-	public void setSkin(String skin) {
-		this.skin = skin;
-	}
-
-	public String getCape() {
-		return cape;
-	}
-
-	public void setCape(String cape) {
-		this.cape = cape;
-	}	
 }
