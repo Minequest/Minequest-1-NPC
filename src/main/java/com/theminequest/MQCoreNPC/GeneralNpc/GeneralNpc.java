@@ -29,14 +29,34 @@ public class GeneralNpc {
 	private String[] itemDrops;
 	
 	/**
-	 * 
-	 * @param name
+	 * Used to initially spawn npcs. 
+	 * Sets everything to default other than name and location.
+	 * @param name, location
 	 */
-	public void GeneralNpc(String name, Location location){
-		
+	public void GeneralNpc(String name1, Location location1){
+		name = name1; 
+		location = location1;
 	}
 	
-	public void GeneralNpc(String name, Location location, boolean vulnerable, boolean retaliate, boolean wander  ){
+	/**
+	 * Set npcs base values from file
+	 * Use GeneralNpc(string, Location) to spawn NPCs.
+	 * 
+	 * @param name1, location1, skin1, cape1, vulnerable1, retaliate1, wander1, wanderDistance1, hitMessages1, killexp1
+	 */
+	public void GeneralNpc(String name1, Location location1, String skin1, String cape1, boolean vulnerable1, boolean retaliate1,
+		boolean wander1, double wanderDistance1, String[] hitMessages1, double killexp1, double killgold1, String[] itemsDrops1){
+		
+		name = name1;
+		location = location1;
+		skin = skin1;
+		vulnerable = vulnerable1;
+		retaliate = retaliate1;
+		wander = wander1;
+		wanderDistance = wanderDistance1;
+		hitMessages = hitMessages1;
+		killexp = killexp1;
+		itemDrops = itemsDrops1;
 		
 	}
 	/**

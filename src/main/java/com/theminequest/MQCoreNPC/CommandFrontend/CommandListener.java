@@ -42,11 +42,18 @@ public class CommandListener implements CommandExecutor{
 	private String npcName;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String command, String[] args) {
+		
 		Player player = null;
 		if (sender instanceof Player)
 			player = (Player) sender;
+		
 
 		if (args.length == 0){
+			if(cmd.getName().equalsIgnoreCase("minequest") && player != null){
+				sender.sendMessage("    /npc - (NPC Plugin only)");
+				return true;
+			}
+			
 			if(cmd.getName().equalsIgnoreCase("npc") && player != null){
 				sender.sendMessage("Npc Commands:");
 				sender.sendMessage("    /npc create <Type of Npc> <Name of Npc> - Creates a npc at your location.");
@@ -68,6 +75,7 @@ public class CommandListener implements CommandExecutor{
 			if(args[0].equalsIgnoreCase("create")){
 				if(args[1].equalsIgnoreCase("quest")){
 					npcName = args[2].toString();
+					
 					if(!args[2].isEmpty()){
 						try {
 							MQCoreNPC.questNPCs.createQuestNPC(npcName, location);
@@ -75,7 +83,6 @@ public class CommandListener implements CommandExecutor{
 							player.sendMessage("Creation failed.");
 						}
 					}
-					return true;
 				}
 			}
 		}
